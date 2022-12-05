@@ -4,34 +4,21 @@ const path = require('path');
 const input = fs.readFileSync(path.join(__dirname, 'input'), 'utf8');
 
 const getStacks = (lines) => {
-  const stacks = [];
-
-  for(let line in lines) {
-
-    if(lines[line].charAt(1) === "1"){
-      return stacks
-    }
-
-    for( let i = 1, column = 0; i < lines[line].length; i+=4, column++) {
-      if(!stacks[column]) stacks[column] = [];
-      
-      if(lines[line].charAt(i) !== " ") {
-        stacks[column].push(lines[line].charAt(i))
+  return lines.reduce((acc, line) => {
+    if (line.charAt(1) === '1') return acc;
+    for (let i = 1, column = 0; i < line.length; i += 4, column++) {
+      if (!acc[column]) acc[column] = [];
+      if (line.charAt(i) !== ' ') {
+        acc[column].push(line.charAt(i));
       }
     }
-  }
+    return acc;
+  }, []);
 }
 
 const getInstructions = (lines) => {
-  const instructions = [];
-
-  for(let line of lines) {
-    if(line.charAt(0) !== 'm') {
-      continue;
-    }
-    instructions.push( line.match(/\d+/gi));
-  }
-  return instructions;
+  return lines.filter(line => line.charAt(0) === 'm')
+  .map(line => line.match(/\d+/gi));
 }
 
 const move = (stacks, instruction, crateMoverVersion = 9000) => {
@@ -54,9 +41,7 @@ const solve = ( input, crateMoverVersion ) => {
   const stacks = getStacks(lines);
   const instructions = getInstructions(lines);
   
-  for(let instruction of instructions) {
-    move(stacks, instruction, crateMoverVersion);
-  }
+  instructions.forEach( instruction => move(stacks, instruction, crateMoverVersion));
 
   return stacks.map( column => column[0]).join('');
 }

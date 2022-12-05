@@ -4,22 +4,37 @@ const day5 = require('./Day 5');
 
 const args = process.argv.slice(2);
 
-if(args.length === 0) {
-  console.log('Please provide a day number. Example: `node index.js -day 3`');
-  return;
+function checkArgs() {
+  if(args.length === 0) {
+    console.log('Please provide a day number. Example: `node index.js -day 3`');
+    return;
+  }
 }
 
-if (process.argv.includes('-day') && process.argv[process.argv.indexOf('-day') + 1] === '3') {
-  console.log(`Part One solution: ${day3.partOne}`);
-  console.log(`Part Two solution: ${day3.partTwo}`);
+function handleDay(day) {
+  switch (day) {
+    case '3':
+      console.log(`Part One solution: ${day3.partOne}`);
+      console.log(`Part Two solution: ${day3.partTwo}`);
+      break;
+    case '4':
+      console.log(`Part One solution: ${day4.partOne}`);
+      console.log(`Part Two solution: ${day4.partTwo}`);
+      break;
+    case '5':
+      console.log(`Part One solution: ${day5.partOne}`);
+      console.log(`Part Two solution: ${day5.partTwo}`);
+      break;
+    default:
+      console.log('Please provide a valid day number.');
+  }
 }
 
-if (process.argv.includes('-day') && process.argv[process.argv.indexOf('-day') + 1] === '4') {
-  console.log(`Part One solution: ${day4.partOne}`);
-  console.log(`Part Two solution: ${day4.partTwo}`);
-}
+checkArgs();
 
-if (process.argv.includes('-day') && process.argv[process.argv.indexOf('-day') + 1] === '5') {
-  console.log(`Part One solution: ${day5.partOne}`);
-  console.log(`Part Two solution: ${day5.partTwo}`);
-}
+args.forEach(arg => {
+  if (arg.startsWith('-day')) {
+    const day = args[args.indexOf('-day') + 1]
+    handleDay(day);
+  }
+});
