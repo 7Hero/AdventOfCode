@@ -1,8 +1,7 @@
 const fs = require('fs');
+const path = require('path');
 
-const input = fs.readFileSync('input_day5', 'utf8');
-
-const lines = input.split('\r\n')
+const input = fs.readFileSync(path.join(__dirname, 'input'), 'utf8');
 
 const getStacks = (lines) => {
   const stacks = [];
@@ -49,16 +48,20 @@ const move = (stacks, instruction, crateMoverVersion = 9000) => {
   } 
 }
 
-const solve = (lines) => {
+const solve = ( input, crateMoverVersion ) => {
+  const lines = input.split('\r\n')
+
   const stacks = getStacks(lines);
   const instructions = getInstructions(lines);
   
   for(let instruction of instructions) {
-    // move(stacks, instruction, 9001) for Part Two.
-    move(stacks, instruction);
+    move(stacks, instruction, crateMoverVersion);
   }
 
   return stacks.map( column => column[0]).join('');
 }
 
-console.log(solve(lines))
+module.exports = {
+  partOne: solve(input, 9000),
+  partTwo: solve(input, 9001)
+}
