@@ -1,3 +1,4 @@
+const day1 = require('./Day 1');
 const day3 = require('./Day 3');
 const day4 = require('./Day 4');
 const day5 = require('./Day 5');
@@ -13,6 +14,10 @@ function checkArgs() {
 
 function handleDay(day) {
   switch (day) {
+    case '1':
+      console.log(`Part One solution: ${day1.partOne}`);
+      console.log(`Part Two solution: ${day1.partTwo}`);
+      break;
     case '3':
       console.log(`Part One solution: ${day3.partOne}`);
       console.log(`Part Two solution: ${day3.partTwo}`);

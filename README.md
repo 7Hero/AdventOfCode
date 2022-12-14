@@ -15,6 +15,7 @@ node index.js -day 3
 This will output the solutions for both parts of the challenge for the given day.
 
 ## Available Solutions
+ - Day 1
  - Day 3
  - Day 4
  - Day 5
